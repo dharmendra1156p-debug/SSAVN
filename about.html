@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us – SSAVN Community</title>
+  <meta name="description" content="Learn about the SSAVN Community – who we are, what we believe, and why we exist.">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #ffffff;
+      --bg-soft:   #f5f4f0;
+      --bg-card:   #ffffff;
+      --border:    rgba(0,0,0,0.10);
+      --border-md: rgba(0,0,0,0.18);
+      --text:      #1a1a18;
+      --text-muted:#5a5a56;
+      --accent:    #1d6a4a;
+      --accent-bg: #e5f2eb;
+      --accent-txt:#0f4a32;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --font-head: 'Georgia', 'Times New Roman', serif;
+      --font-body: 'Helvetica Neue', Arial, sans-serif;
+      --transition: 0.18s ease;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header ── */
+    header {
+      border-bottom: 0.5px solid var(--border);
+      background: var(--bg);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 1.25rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .site-logo {
+      font-family: var(--font-head);
+      font-size: 18px;
+      font-weight: normal;
+      color: var(--text);
+      letter-spacing: 0.01em;
+      text-decoration: none;
+    }
+    .site-logo:hover { text-decoration: none; }
+
+    /* ── Burger ── */
+    .burger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 36px;
+      height: 36px;
+      background: none;
+      border: 0.5px solid var(--border-md);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      padding: 7px;
+    }
+    .burger span {
+      display: block;
+      height: 1.5px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: transform var(--transition), opacity var(--transition);
+    }
+    .burger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .burger.open span:nth-child(2) { opacity: 0; }
+    .burger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* ── Top Nav ── */
+    .top-nav {
+      border-top: 0.5px solid var(--border);
+      background: var(--bg);
+    }
+    .top-nav ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 0.65rem 1.25rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .top-nav a {
+      font-size: 13px;
+      padding: 4px 12px;
+      border: 0.5px solid var(--border-md);
+      border-radius: 20px;
+      color: var(--text-muted);
+      transition: background var(--transition), color var(--transition);
+      display: block;
+    }
+    .top-nav a:hover, .top-nav a.active {
+      background: var(--accent-bg);
+      color: var(--accent-txt);
+      text-decoration: none;
+      border-color: transparent;
+    }
+
+    @media (max-width: 640px) {
+      .burger { display: flex; }
+      .top-nav { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+      .top-nav.open { max-height: 400px; }
+      .top-nav ul { flex-direction: column; gap: 4px; }
+      .top-nav a { font-size: 14px; padding: 8px 14px; border-radius: var(--radius-sm); }
+    }
+
+    /* ── Page hero ── */
+    .page-hero {
+      padding: 2.5rem 1.25rem 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+      border-bottom: 0.5px solid var(--border);
+    }
+    .breadcrumb {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+    .breadcrumb a { color: var(--text-muted); }
+    .breadcrumb a:hover { color: var(--accent); }
+    .page-title {
+      font-family: var(--font-head);
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: normal;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+    .page-subtitle {
+      font-size: 15px;
+      color: var(--text-muted);
+      max-width: 580px;
+    }
+
+    /* ── Main content ── */
+    main { padding: 2.5rem 0 1rem; }
+    section { margin-bottom: 3rem; }
+    .section-wrap { padding: 0 1.25rem; max-width: 900px; margin: 0 auto; }
+
+    h2 {
+      font-family: var(--font-head);
+      font-size: 20px;
+      font-weight: normal;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+    h3 {
+      font-family: var(--font-head);
+      font-size: 16px;
+      font-weight: normal;
+      margin-bottom: 0.4rem;
+      color: var(--text);
+    }
+
+    /* ── Prose ── */
+    .prose p {
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      font-size: 15px;
+      max-width: 680px;
+    }
+    .prose p:last-child { margin-bottom: 0; }
+
+    /* ── Value cards ── */
+    .value-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-top: 1.25rem;
+    }
+    @media (max-width: 480px) {
+      .value-grid { grid-template-columns: 1fr 1fr; }
+    }
+    .value-card {
+      background: var(--bg-soft);
+      border-radius: var(--radius-lg);
+      padding: 1.1rem 1.25rem;
+      border: 0.5px solid var(--border);
+    }
+    .value-card .icon {
+      font-size: 20px;
+      margin-bottom: 8px;
+      display: block;
+    }
+    .value-card h3 { font-size: 15px; margin-bottom: 5px; }
+    .value-card p { font-size: 13px; color: var(--text-muted); line-height: 1.5; margin: 0; }
+
+    /* ── Belief list ── */
+    .belief-list {
+      list-style: none;
+      margin-top: 0.5rem;
+    }
+    .belief-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 0.5px solid var(--border);
+      font-size: 15px;
+      color: var(--text-muted);
+    }
+    .belief-list li:last-child { border-bottom: none; }
+    .belief-list li::before {
+      content: '✓';
+      min-width: 24px;
+      height: 24px;
+      background: var(--accent-bg);
+      color: var(--accent-txt);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* ── Team / founding block ── */
+    .info-block {
+      background: var(--bg-soft);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+    }
+    .info-block p {
+      font-size: 15px;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+    .info-block p:last-child { margin-bottom: 0; }
+    .info-block strong { color: var(--text); font-weight: 500; }
+
+    /* ── Pill strip ── */
+    .pill-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 1rem;
+    }
+    .pill {
+      font-size: 12px;
+      padding: 4px 12px;
+      background: var(--accent-bg);
+      color: var(--accent-txt);
+      border-radius: 20px;
+      font-weight: 500;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      height: 0.5px;
+      background: var(--border);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* ── CTA ── */
+    .cta-block {
+      background: var(--accent-bg);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .cta-block p {
+      font-size: 15px;
+      color: var(--accent-txt);
+      margin: 0;
+    }
+    .cta-btn {
+      display: inline-block;
+      padding: 8px 20px;
+      background: var(--accent);
+      color: #fff;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      white-space: nowrap;
+      transition: opacity var(--transition);
+      text-decoration: none;
+    }
+    .cta-btn:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 0.5px solid var(--border);
+      padding: 1.25rem;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="site-logo">SSAVN Community</a>
+    <button class="burger" id="burger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <nav class="top-nav" id="top-nav" aria-label="Main navigation">
+    <ul>
+      <li><a href="departments.html">Departments</a></li>
+      <li><a href="committees.html">Committees</a></li>
+      <li><a href="constitution.html">Constitution</a></li>
+      <li><a href="about.html" class="active">About Us</a></li>
+      <li><a href="faqs.html">FAQs</a></li>
+      <li><a href="index.html#join">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="page-hero">
+  <p class="breadcrumb"><a href="index.html">Home</a> &rsaquo; About us</p>
+  <h1 class="page-title">About SSAVN Community</h1>
+  <p class="page-subtitle">A people-first community built on the belief that real growth happens when we work, learn, and evolve together.</p>
+</div>
+
+<main>
+
+  <!-- WHO WE ARE -->
+  <section id="who-we-are">
+    <div class="section-wrap">
+      <h2>Who we are</h2>
+      <div class="prose">
+        <p>SSAVN Community is a collaborative, open community of individuals and groups who come together to solve real-world problems. We are not a company, a school, or an institution — we are a living network of people who believe in the power of collective effort.</p>
+        <p>We work across projects, workshops, events, and creative endeavors. Anyone who understands the language of intention, willingness, and responsibility is welcome here — regardless of age, background, caste, gender, or geography.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- WHY WE EXIST -->
+  <section id="why">
+    <div class="section-wrap">
+      <h2>Why we exist</h2>
+      <div class="prose">
+        <p>Most people want to do meaningful work. Most communities make that hard. We set out to build something different — a space where learning is tied to doing, where contribution is rewarded, and where growth is a shared journey.</p>
+        <p>SSAVN stands for the four pillars every member grows through:</p>
+      </div>
+      <div class="value-grid">
+        <div class="value-card">
+          <span class="icon">📖</span>
+          <h3>Learn</h3>
+          <p>Gain knowledge and skills through real work and collaboration</p>
+        </div>
+        <div class="value-card">
+          <span class="icon">💰</span>
+          <h3>Earn</h3>
+          <p>Create value that translates into recognition and livelihood</p>
+        </div>
+        <div class="value-card">
+          <span class="icon">🎉</span>
+          <h3>Enjoy</h3>
+          <p>Find joy in what you do, celebrate milestones together</p>
+        </div>
+        <div class="value-card">
+          <span class="icon">🌱</span>
+          <h3>Evolve</h3>
+          <p>Continuously grow as a person and as part of a community</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- WHAT WE BELIEVE -->
+  <section id="beliefs">
+    <div class="section-wrap">
+      <h2>What we believe</h2>
+      <ul class="belief-list">
+        <li>Every person has something meaningful to contribute</li>
+        <li>Real learning happens through doing, not just watching</li>
+        <li>Diversity of thought, background, and experience makes us stronger</li>
+        <li>Transparency and responsibility are the foundation of trust</li>
+        <li>Communities thrive when individuals are genuinely supported</li>
+        <li>Good work deserves recognition — and fair reward</li>
+        <li>Growth is a continuous process, not a destination</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- WHO CAN JOIN -->
+  <section id="who-can-join">
+    <div class="section-wrap">
+      <h2>Who can join</h2>
+      <div class="info-block">
+        <p>SSAVN Community is open to <strong>anyone</strong> who can understand the language of the community and who is willing to contribute with intention and responsibility.</p>
+        <p>We do not discriminate based on age, educational qualification, professional background, caste, gender, religion, or language. The only requirements are:</p>
+      </div>
+      <div class="pill-strip">
+        <span class="pill">Clear intention</span>
+        <span class="pill">Genuine willingness</span>
+        <span class="pill">Sense of responsibility</span>
+        <span class="pill">Basic ability to contribute</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- HOW WE OPERATE -->
+  <section id="how-we-operate">
+    <div class="section-wrap">
+      <h2>How we operate</h2>
+      <div class="prose">
+        <p>The community is structured into <strong>departments</strong>, each focused on a specific area of work. <strong>Committees</strong> provide direction, governance, and accountability across the community. Members contribute to ongoing work and are supported by the community throughout their journey.</p>
+        <p>All decisions are made collectively, guided by our Constitution. Records of work, assets, and member contributions are maintained openly and transparently.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CTA -->
+  <section id="join-cta">
+    <div class="section-wrap">
+      <div class="cta-block">
+        <p>Ready to be part of something meaningful?</p>
+        <a href="index.html#join" class="cta-btn">See how to join →</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>&copy; 2025 SSAVN Community &nbsp;·&nbsp; <a href="index.html">Home</a> &nbsp;·&nbsp; <a href="faq.html">FAQs</a> &nbsp;·&nbsp; <a href="constitution.html">Constitution</a></p>
+</footer>
+
+<script>
+  const burger = document.getElementById('burger');
+  const nav = document.getElementById('top-nav');
+  burger.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    burger.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open);
+  });
+  nav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      nav.classList.remove('open');
+      burger.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Constitution – SSAVN Community</title>
+  <meta name="description" content="The founding document of the SSAVN Community – our values, structure, and rules.">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #ffffff;
+      --bg-soft:   #f5f4f0;
+      --bg-card:   #ffffff;
+      --border:    rgba(0,0,0,0.10);
+      --border-md: rgba(0,0,0,0.18);
+      --text:      #1a1a18;
+      --text-muted:#5a5a56;
+      --accent:    #1d6a4a;
+      --accent-bg: #e5f2eb;
+      --accent-txt:#0f4a32;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --font-head: 'Georgia', 'Times New Roman', serif;
+      --font-body: 'Helvetica Neue', Arial, sans-serif;
+      --transition: 0.18s ease;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header ── */
+    header {
+      border-bottom: 0.5px solid var(--border);
+      background: var(--bg);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 1.25rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .site-logo {
+      font-family: var(--font-head);
+      font-size: 18px;
+      font-weight: normal;
+      color: var(--text);
+      letter-spacing: 0.01em;
+      text-decoration: none;
+    }
+    .site-logo:hover { text-decoration: none; }
+
+    /* ── Burger ── */
+    .burger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 36px;
+      height: 36px;
+      background: none;
+      border: 0.5px solid var(--border-md);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      padding: 7px;
+    }
+    .burger span {
+      display: block;
+      height: 1.5px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: transform var(--transition), opacity var(--transition);
+    }
+    .burger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .burger.open span:nth-child(2) { opacity: 0; }
+    .burger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* ── Top Nav ── */
+    .top-nav {
+      border-top: 0.5px solid var(--border);
+      background: var(--bg);
+    }
+    .top-nav ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 0.65rem 1.25rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .top-nav a {
+      font-size: 13px;
+      padding: 4px 12px;
+      border: 0.5px solid var(--border-md);
+      border-radius: 20px;
+      color: var(--text-muted);
+      transition: background var(--transition), color var(--transition);
+      display: block;
+    }
+    .top-nav a:hover, .top-nav a.active {
+      background: var(--accent-bg);
+      color: var(--accent-txt);
+      text-decoration: none;
+      border-color: transparent;
+    }
+
+    @media (max-width: 640px) {
+      .burger { display: flex; }
+      .top-nav { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+      .top-nav.open { max-height: 400px; }
+      .top-nav ul { flex-direction: column; gap: 4px; }
+      .top-nav a { font-size: 14px; padding: 8px 14px; border-radius: var(--radius-sm); }
+    }
+
+    /* ── Page hero ── */
+    .page-hero {
+      padding: 2.5rem 1.25rem 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+      border-bottom: 0.5px solid var(--border);
+    }
+    .breadcrumb {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+    .breadcrumb a { color: var(--text-muted); }
+    .breadcrumb a:hover { color: var(--accent); }
+    .page-title {
+      font-family: var(--font-head);
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: normal;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+    .page-subtitle {
+      font-size: 15px;
+      color: var(--text-muted);
+      max-width: 580px;
+      margin-bottom: 1rem;
+    }
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .meta-row span { display: flex; align-items: center; gap: 5px; }
+
+    /* ── Sidebar: fixed to far left of viewport ── */
+    .sidebar {
+      position: fixed;
+      top: 120px;
+      left: 0;
+      width: 200px;
+      padding: 0 1rem 2rem 1.25rem;
+      overflow-y: auto;
+      max-height: calc(100vh - 140px);
+    }
+
+    /* ── Main content: centred at nav width, ignores sidebar ── */
+    .content-layout {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem 1rem;
+    }
+
+    .article-outer { padding: 0; }
+    .col-gutter { display: none; }
+
+    @media (max-width: 860px) {
+      .sidebar { width: 160px; }
+    }
+
+    @media (max-width: 640px) {
+      .sidebar { display: none; }
+      .content-layout { padding: 1.5rem 1.25rem 1rem; }
+    }
+    .toc-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+    .toc-list {
+      list-style: none;
+    }
+    .toc-list li { margin-bottom: 2px; }
+    .toc-list a {
+      font-size: 13px;
+      color: var(--text-muted);
+      display: block;
+      padding: 4px 8px;
+      border-radius: var(--radius-sm);
+      transition: background var(--transition), color var(--transition);
+      line-height: 1.4;
+    }
+    .toc-list a:hover {
+      background: var(--bg-soft);
+      color: var(--text);
+      text-decoration: none;
+    }
+    .toc-list a.active {
+      background: var(--accent-bg);
+      color: var(--accent-txt);
+    }
+
+    /* ── Article ── */
+    .article { min-width: 0; }
+
+    .article-section {
+      margin-bottom: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 0.5px solid var(--border);
+    }
+    .article-section:last-child {
+      border-bottom: none;
+    }
+
+    .article-num {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+
+    h2 {
+      font-family: var(--font-head);
+      font-size: 20px;
+      font-weight: normal;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    .article-body p {
+      font-size: 15px;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      line-height: 1.75;
+    }
+    .article-body p:last-child { margin-bottom: 0; }
+
+    /* ── Clause list ── */
+    .clause-list {
+      list-style: none;
+      margin-top: 0.75rem;
+    }
+    .clause-list li {
+      display: flex;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 0.5px solid var(--border);
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    .clause-list li:last-child { border-bottom: none; }
+    .clause-num {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent);
+      min-width: 32px;
+      padding-top: 2px;
+      flex-shrink: 0;
+    }
+
+    /* ── Highlight box ── */
+    .highlight-box {
+      background: var(--accent-bg);
+      border-left: 2px solid var(--accent);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      padding: 1rem 1.25rem;
+      margin: 1.25rem 0;
+    }
+    .highlight-box p {
+      font-size: 14px;
+      color: var(--accent-txt);
+      margin: 0;
+      font-style: italic;
+      line-height: 1.6;
+    }
+
+    /* ── Value pills ── */
+    .pill-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 0.75rem;
+    }
+    .pill {
+      font-size: 12px;
+      padding: 4px 12px;
+      background: var(--accent-bg);
+      color: var(--accent-txt);
+      border-radius: 20px;
+      font-weight: 500;
+    }
+
+    /* ── Info table ── */
+    .info-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin-top: 0.75rem;
+    }
+    .info-table th {
+      text-align: left;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      padding: 8px 12px 8px 0;
+      border-bottom: 0.5px solid var(--border-md);
+    }
+    .info-table td {
+      padding: 10px 12px 10px 0;
+      border-bottom: 0.5px solid var(--border);
+      color: var(--text-muted);
+      vertical-align: top;
+    }
+    .info-table tr:last-child td { border-bottom: none; }
+    .info-table td:first-child { color: var(--text); font-weight: 500; white-space: nowrap; }
+
+    /* ── Divider ── */
+    .divider { height: 0.5px; background: var(--border); max-width: 900px; margin: 0 auto; }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 0.5px solid var(--border);
+      padding: 1.25rem;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="site-logo">SSAVN Community</a>
+    <button class="burger" id="burger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <nav class="top-nav" id="top-nav" aria-label="Main navigation">
+    <ul>
+      <li><a href="departments.html">Departments</a></li>
+      <li><a href="committees.html">Committees</a></li>
+            <li><a href="constitution.html" class="active">Constitution</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="faqs.html">FAQs</a></li>
+      <li><a href="index.html">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="page-hero">
+  <p class="breadcrumb"><a href="index.html">Home</a> &rsaquo; Constitution</p>
+  <h1 class="page-title">SSAVN Constitution</h1>
+  <p class="page-subtitle">The founding document that defines who we are, how we operate, and the principles we commit to uphold as a community.</p>
+  <div class="meta-row">
+    <span>Version 1.0</span>
+    <span>Effective: 2025</span>
+    <span>14 Articles</span>
+  </div>
+</div>
+
+<!-- SIDEBAR TOC — fixed to left edge -->
+<aside class="sidebar">
+  <p class="toc-label">Contents</p>
+  <ul class="toc-list" id="toc">
+    <li><a href="#preamble">Preamble</a></li>
+    <li><a href="#article-1">1. Name &amp; nature</a></li>
+    <li><a href="#article-2">2. Vision &amp; mission</a></li>
+    <li><a href="#article-3">2. Core Value</a></li>
+    <li><a href="#article-4">3. Membership</a></li>
+    <li><a href="#article-5">4. Governance</a></li>
+    <li><a href="#article-6">5. Departments</a></li>
+    <li><a href="#article-7">6. Meetings</a></li>
+    <li><a href="#article-8">7. Code of conduct</a></li>
+    <li><a href="#article-9">8. Conflict resolution</a></li>
+    <li><a href="#article-10">9. Finance &amp; funding</a></li>
+    <li><a href="#article-11">10. Resource management</a></li>
+    <li><a href="#article-12">11. Collaborations</a></li>
+    <li><a href="#article-13">12. Amendments</a></li>
+    <li><a href="#article-14">13. Dissolution</a></li>
+    <li><a href="#article-15">14. Legal compliance</a></li>
+    <li><a href="#declaration">Declaration</a></li>
+  </ul>
+</aside>
+
+<div class="content-layout">
+
+  <!-- ARTICLE BODY -->
+  <main class="article">
+  <div class="article-outer">
+
+    <!-- PREAMBLE -->
+    <div class="article-section" id="preamble">
+      <p class="article-num">Preamble</p>
+      <h2>Why this document exists</h2>
+      <div class="article-body">
+        <p>We, the founding members of SSAVN Community, recognise that meaningful collective work requires a shared foundation — of values, expectations, and processes that everyone agrees to uphold.</p>
+        <p>This Constitution is that foundation. It is not a rulebook designed to restrict, but a framework designed to enable. It protects every member's dignity, ensures fairness, and creates the conditions for genuine collaboration and growth.</p>
+        <div class="highlight-box">
+          <p>"To create a balanced and progressive society where individuals live with purpose, financial stability, meaningful relationships, and inner peace."</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ARTICLE 1 -->
+    <div class="article-section" id="article-1">
+      <p class="article-num">Article 1</p>
+      <h2>Name, nature &amp; registered office</h2>
+      <div class="article-body">
+        <ul class="clause-list">
+          <li><span class="clause-num">1.1</span><span><strong>Name.</strong> The name of the organization shall be <strong>SSAVN Community</strong> (hereinafter referred to as "the Community" or "the Organization").</span></li>
+          <li><span class="clause-num">1.2</span><span><strong>Nature.</strong> The Community is a <strong>non-profit, non-political, and non-religious organization</strong>, established for social development, personal growth, and community welfare.</span></li>
+          <li><span class="clause-num">1.3</span><span><strong>Registered Office.</strong> The registered office shall be located at <strong>[Address]</strong>. The office may be changed by resolution of the Governing Body.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ARTICLE 2 -->
+    <div class="article-section" id="article-2">
+      <p class="article-num">Article 2</p>
+      <h2>Vision, mission &amp; objectives</h2>
+      <div class="article-body">
+        <h3 style="font-family:var(--font-head);font-size:15px;font-weight:normal;color:var(--text-muted);margin-bottom:0.5rem;margin-top:1rem;">2.1 Vision</h3>
+        <p>To create a balanced and progressive society where individuals live with purpose, financial stability, meaningful relationships, and inner peace.</p>
+
+        <h3 style="font-family:var(--font-head);font-size:15px;font-weight:normal;color:var(--text-muted);margin-bottom:0.5rem;margin-top:1.25rem;">2.2 Mission</h3>
+        <ul class="clause-list">
+          <li><span class="clause-num">—</span> To promote self-awareness and right direction (<em>Dharma</em>)</li>
+          <li><span class="clause-num">—</span> To enable sustainable livelihood and economic participation (<em>Artha</em>)</li>
+          <li><span class="clause-num">—</span> To foster healthy relationships and joyful living (<em>Kama</em>)</li>
+          <li><span class="clause-num">—</span> To encourage inner growth and service to society (<em>Moksha</em>)</li>
+        </ul>
+
+        <h3 style="font-family:var(--font-head);font-size:15px;font-weight:normal;color:var(--text-muted);margin-bottom:0.5rem;margin-top:1.25rem;">2.3 Objectives</h3>
+        <p>The Organization shall:</p>
+        <ul class="clause-list">
+          <li><span class="clause-num">—</span> Provide educational, vocational, and life-skill programs</li>
+          <li><span class="clause-num">—</span> Facilitate employment, collaboration, and entrepreneurship</li>
+          <li><span class="clause-num">—</span> Organize cultural, social, and recreational activities</li>
+          <li><span class="clause-num">—</span> Conduct wellness, meditation, and self-development programs</li>
+          <li><span class="clause-num">—</span> Undertake social service and environmental initiatives</li>
+        </ul>
+      </div>
+    </div>
+
+        <!-- ARTICLE 3 -->
+
+    <div class="article-section" id="article-3">
+      <p class="article-num">Article 3</p>
+      <h2>Core values</h2>
+      <div class="article-body">
+        <p>All members are expected to embody and uphold the following values in their participation:</p>
+        <div class="pill-group">
+          <span class="pill">Integrity</span>
+          <span class="pill">Respect</span>
+          <span class="pill">Responsibility</span>
+          <span class="pill">Transparency</span>
+          <span class="pill">Collaboration</span>
+          <span class="pill">Inclusivity</span>
+        </div>
+        <ul class="clause-list" style="margin-top: 1.25rem;">
+          <li><span class="clause-num">3.1</span><strong>Integrity</strong> — Members act honestly, keep their commitments, and do not misrepresent themselves or their work.</li>
+          <li><span class="clause-num">3.2</span><strong>Respect</strong> — Every person in the community is treated with dignity, regardless of their role or status.</li>
+          <li><span class="clause-num">3.3</span><strong>Responsibility</strong> — Members own the commitments they make and the outcomes of their actions.</li>
+          <li><span class="clause-num">3.4</span><strong>Transparency</strong> — Information relevant to the community is shared openly and honestly.</li>
+          <li><span class="clause-num">3.5</span><strong>Collaboration</strong> — Members actively support each other's growth and success.</li>
+          <li><span class="clause-num">3.6</span><strong>Inclusivity</strong> — No person is excluded based on identity. Diversity is a strength, not a challenge.</li>
+        </ul>
+      </div>
+    </div>  
+
+    <!-- ARTICLE 4 -->
+    <div class="article-section" id="article-4">
+      <p class="article-num">Article 4</p>
+      <h2>Membership</h2>
+      <div class="article-body">
+
+        <h3 style="font-family:var(--font-head);font-size:15px;font-weight:normal;color:var(--text-muted);margin-bottom:0.5rem;">3.1 Eligibility</h3>
+        <p>Membership is open to individuals who agree with the objectives of the Organization and are willing to actively participate and contribute.</p>
+
+        <h3 style="font-family:var(--font-head);font-size:15px;font-weight:normal;color:var(--text-muted);margin-bottom:0.5rem;margin-top:1.25rem;">3.2 Categories of Membership</h3>
+        <table class="info-table">
+          <thead>
+            <tr><th>Category</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>General Members</td><td>Individuals who have joined and support the community's objectives</td></tr>
+            <tr><td>Active Members</td><td>Regular contributors engaged in community work and programs</td></tr>
+            <tr><td>Core Members</td><td>Members in leadership roles with greater responsibility</td></tr>
+            <tr><td>Advisory Members</td><td>Optional experts or mentors who guide the organization</td></tr>
+          </tbody>
+        </table>
+
+        <h3 style="font-family:var(--font-head);font-size:15px;font-weight:normal;color:var(--text-muted);margin-bottom:0.5rem;margin-top:1.5rem;">3.3 Admission Process</h3>
+        <ul class="clause-list">
+          <li><span class="clause-num">i</span> Submission of application or referral by an existing member</li>
+          <li><span class="clause-num">ii</span> Review by authorized members of the Governing Body</li>
+          <li><span class="clause-num">iii</span> Completion of a trial or observation period</li>
+          <li><span class="clause-num">iv</span> Formal approval by the Governing Body or designated authority</li>
+        </ul>
+
+        <h3 style="font-family:var(--font-head);font-size:15px;font-weight:normal;color:var(--text-muted);margin-bottom:0.5rem;margin-top:1.25rem;">3.4 Rights of Members</h3>
+        <ul class="clause-list">
+          <li><span class="clause-num">—</span> Participate in all activities and programs of the Organization</li>
+          <li><span class="clause-num">—</span> Access community resources relevant to their membership category</li>
+          <li><span class="clause-num">—</span> Provide feedback and suggestions to the Governing Body</li>
+        </ul>
+
+        <h3 style="font-family:var(--font-head);font-size:15px;font-weight:normal;color:var(--text-muted);margin-bottom:0.5rem;margin-top:1.25rem;">3.5 Duties of Members</h3>
+        <ul class="clause-list">
+          <li><span class="clause-num">—</span> Follow the rules and code of conduct of the Organization</li>
+          <li><span class="clause-num">—</span> Actively contribute to community activities and goals</li>
+          <li><span class="clause-num">—</span> Maintain respectful and constructive behavior at all times</li>
+        </ul>
+
+        <h3 style="font-family:var(--font-head);font-size:15px;font-weight:normal;color:var(--text-muted);margin-bottom:0.5rem;margin-top:1.25rem;">3.6 Termination of Membership</h3>
+        <p>Membership may be terminated due to:</p>
+        <ul class="clause-list">
+          <li><span class="clause-num">—</span> Voluntary resignation by the member</li>
+          <li><span class="clause-num">—</span> Prolonged inactivity without valid reason</li>
+          <li><span class="clause-num">—</span> Violation of the rules or misconduct</li>
+          <li><span class="clause-num">—</span> Decision by the Governing Body after a fair hearing</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ARTICLE 5 -->
+    <div class="article-section" id="article-5">
+      <p class="article-num">Article 5</p>
+      <h2>Governance structure</h2>
+      <div class="article-body">
+        <h3 style="font-family:var(--font-head);font-size:15px;font-weight:normal;color:var(--text-muted);margin-bottom:0.5rem;">4.1 Governing Body</h3>
+        <p>The Governing Body shall consist of:</p>
+        <table class="info-table">
+          <thead>
+            <tr><th>Role</th><th>Responsibilities</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Founder / President<br><span style="font-size:12px;color:var(--text-muted);font-weight:normal">(अध्यक्ष)</span></td>
+              <td>Provides vision and strategic direction; holds final authority in major decisions</td>
+            </tr>
+            <tr>
+              <td>Vice President</td>
+              <td>Supports the President; assumes responsibilities in their absence (optional role)</td>
+            </tr>
+            <tr>
+              <td>Secretary</td>
+              <td>Manages operations and communication; maintains records and documentation</td>
+            </tr>
+            <tr>
+              <td>Treasurer</td>
+              <td>Manages funds and financial records; ensures transparency in all finances</td>
+            </tr>
+            <tr>
+              <td>Core Members</td>
+              <td>Assist in execution and management; lead departments or specific initiatives</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ARTICLE 6 -->
+    <div class="article-section" id="article-6">
+      <p class="article-num">Article 6</p>
+      <h2>Departments</h2>
+      <div class="article-body">
+        <p>The Organization shall function through the following four departments, each aligned with a core pillar:</p>
+        <ul class="clause-list">
+          <li>
+            <span class="clause-num">5.1</span>
+            <span><strong>Dharma — Education &amp; Direction.</strong> Focused on self-development programs and curating knowledge resources to guide members toward purpose and right action.</span>
+          </li>
+          <li>
+            <span class="clause-num">5.2</span>
+            <span><strong>Artha — Livelihood &amp; Skills.</strong> Responsible for skill training, job facilitation, project coordination, and enabling sustainable economic participation.</span>
+          </li>
+          <li>
+            <span class="clause-num">5.3</span>
+            <span><strong>Kama — Social &amp; Cultural Activities.</strong> Organizes events, arts, recreational programs, and community bonding activities that celebrate culture and joy.</span>
+          </li>
+          <li>
+            <span class="clause-num">5.4</span>
+            <span><strong>Moksha — Wellness &amp; Social Service.</strong> Leads meditation, wellness programs, social service initiatives, and environmental responsibility efforts.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ARTICLE 7 -->
+    <div class="article-section" id="article-7">
+      <p class="article-num">Article 7</p>
+      <h2>Meetings</h2>
+      <div class="article-body">
+        <ul class="clause-list">
+          <li><span class="clause-num">6.1</span><span><strong>General Meetings.</strong> Held periodically for all members to review progress, share updates, and make collective decisions.</span></li>
+          <li><span class="clause-num">6.2</span><span><strong>Governing Body Meetings.</strong> Conducted monthly or as required to manage operations and governance.</span></li>
+          <li><span class="clause-num">6.3</span><span><strong>Quorum.</strong> A minimum defined number or percentage of members must be present for a meeting to be valid and decisions to be binding.</span></li>
+          <li><span class="clause-num">6.4</span><span><strong>Decision-Making.</strong> Decisions are made by majority vote. In the event of a tie or significant conflict, the Founder/President holds the final decision.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ARTICLE 7 -->
+    <div class="article-section" id="article-8">
+      <p class="article-num">Article 8</p>
+      <h2>Code of conduct</h2>
+      <div class="article-body">
+        <p>All members shall uphold the following standards of conduct at all times:</p>
+        <ul class="clause-list">
+          <li><span class="clause-num">—</span> Act with integrity, honesty, and respect in all interactions</li>
+          <li><span class="clause-num">—</span> Avoid harmful, abusive, or disruptive behavior toward any member or third party</li>
+          <li><span class="clause-num">—</span> Not misuse, misappropriate, or damage community resources</li>
+          <li><span class="clause-num">—</span> Represent the Organization in a manner consistent with its values and mission</li>
+        </ul>
+        <div class="highlight-box" style="margin-top:1.25rem;">
+          <p>Violation of the Code of Conduct may result in a formal warning, temporary suspension, or permanent removal from the Organization — depending on the severity and nature of the violation.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ARTICLE 8 -->
+    <div class="article-section" id="article-9">
+      <p class="article-num">Article 9</p>
+      <h2>Conflict resolution</h2>
+      <div class="article-body">
+        <p>Disputes or conflicts within the community shall be resolved through the following structured process:</p>
+        <ul class="clause-list">
+          <li><span class="clause-num">Step 1</span> Direct discussion between the involved parties to seek mutual understanding and resolution</li>
+          <li><span class="clause-num">Step 2</span> Mediation facilitated by a Core Member if direct discussion does not resolve the issue</li>
+          <li><span class="clause-num">Step 3</span> Formal review by the Governing Body, with both parties given an equal opportunity to be heard</li>
+          <li><span class="clause-num">Step 4</span> Final decision and action by the Governing Body, which shall be binding on all parties</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ARTICLE 9 -->
+    <div class="article-section" id="article-10">
+      <p class="article-num">Article 10</p>
+      <h2>Finance &amp; funding</h2>
+      <div class="article-body">
+        <h3 style="font-family:var(--font-head);font-size:15px;font-weight:normal;color:var(--text-muted);margin-bottom:0.5rem;">9.1 Sources of Funds</h3>
+        <ul class="clause-list">
+          <li><span class="clause-num">—</span> Membership contributions</li>
+          <li><span class="clause-num">—</span> Donations and grants from individuals or institutions</li>
+          <li><span class="clause-num">—</span> Project-based income generated through community work</li>
+          <li><span class="clause-num">—</span> Partnerships and collaborative arrangements</li>
+        </ul>
+
+        <h3 style="font-family:var(--font-head);font-size:15px;font-weight:normal;color:var(--text-muted);margin-bottom:0.5rem;margin-top:1.25rem;">9.2 Financial Management</h3>
+        <ul class="clause-list">
+          <li><span class="clause-num">—</span> All funds shall be used exclusively for organizational objectives</li>
+          <li><span class="clause-num">—</span> Proper and accurate records shall be maintained at all times</li>
+          <li><span class="clause-num">—</span> Regular financial reporting shall be ensured and shared with members</li>
+          <li><span class="clause-num">—</span> No individual shall commit funds above an agreed threshold without Governing Body approval</li>
+        </ul>
+
+        <h3 style="font-family:var(--font-head);font-size:15px;font-weight:normal;color:var(--text-muted);margin-bottom:0.5rem;margin-top:1.25rem;">9.3 Bank Account</h3>
+        <p>A bank account shall be opened in the name of the Organization and operated only by authorized signatories as designated by the Governing Body.</p>
+      </div>
+    </div>
+
+    <!-- ARTICLE 10 -->
+    <div class="article-section" id="article-11">
+      <p class="article-num">Article 11</p>
+      <h2>Resource management</h2>
+      <div class="article-body">
+        <p>The Organization's resources include:</p>
+        <div class="pill-group">
+          <span class="pill">Human resources</span>
+          <span class="pill">Financial resources</span>
+          <span class="pill">Knowledge &amp; IP</span>
+          <span class="pill">Physical assets</span>
+        </div>
+        <ul class="clause-list" style="margin-top:1.25rem;">
+          <li><span class="clause-num">10.1</span> All resources shall be used ethically and solely for the benefit of the community and its objectives.</li>
+          <li><span class="clause-num">10.2</span> Members, volunteers, and collaborators are considered human resources and must be treated with respect and fairness.</li>
+          <li><span class="clause-num">10.3</span> Intellectual property created under the Organization's name belongs to the Organization unless otherwise agreed in writing.</li>
+          <li><span class="clause-num">10.4</span> Physical assets shall be recorded in a community asset register and maintained responsibly.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ARTICLE 11 -->
+    <div class="article-section" id="article-12">
+      <p class="article-num">Article 12</p>
+      <h2>Collaboration &amp; partnerships</h2>
+      <div class="article-body">
+        <ul class="clause-list">
+          <li><span class="clause-num">11.1</span> The Organization may collaborate with individuals, groups, or institutions that share aligned values and objectives.</li>
+          <li><span class="clause-num">11.2</span> All partnerships must be reviewed and approved by the Governing Body to ensure alignment with the Organization's mission.</li>
+          <li><span class="clause-num">11.3</span> No collaboration shall be entered into that compromises the Organization's integrity, independence, or non-political nature.</li>
+          <li><span class="clause-num">11.4</span> Collaboration agreements of significance shall be documented in writing and retained in the Organization's records.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ARTICLE 12 -->
+    <div class="article-section" id="article-13">
+      <p class="article-num">Article 13</p>
+      <h2>Amendments</h2>
+      <div class="article-body">
+        <ul class="clause-list">
+          <li><span class="clause-num">12.1</span> Amendments to this Constitution may be proposed by any member of the Governing Body.</li>
+          <li><span class="clause-num">12.2</span> Proposed amendments must be communicated to all members in advance of a meeting called for that purpose.</li>
+          <li><span class="clause-num">12.3</span> An amendment is adopted when approved by a majority vote of the Governing Body.</li>
+          <li><span class="clause-num">12.4</span> All adopted changes shall be formally documented and the Constitution version updated accordingly.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ARTICLE 13 -->
+    <div class="article-section" id="article-14">
+      <p class="article-num">Article 14</p>
+      <h2>Dissolution</h2>
+      <div class="article-body">
+        <p>In the event that the Organization is dissolved:</p>
+        <ul class="clause-list">
+          <li><span class="clause-num">13.1</span> All outstanding liabilities and obligations shall be settled before any assets are distributed.</li>
+          <li><span class="clause-num">13.2</span> Remaining assets shall be transferred to a similar non-profit organization as agreed upon by the Governing Body.</li>
+          <li><span class="clause-num">13.3</span> No member shall claim any personal benefit or financial gain from the dissolution.</li>
+          <li><span class="clause-num">13.4</span> A formal dissolution record shall be maintained and made available to all members.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ARTICLE 14 -->
+    <div class="article-section" id="article-15">
+      <p class="article-num">Article 15</p>
+      <h2>Legal compliance</h2>
+      <div class="article-body">
+        <p>The Organization shall at all times comply with all applicable laws, regulations, and statutory requirements of the jurisdiction in which it operates. The Governing Body is responsible for ensuring ongoing legal compliance and for seeking appropriate legal advice when required.</p>
+      </div>
+    </div>
+
+    <!-- DECLARATION -->
+    <div class="article-section" id="declaration">
+      <p class="article-num">Declaration</p>
+      <h2>Adoption &amp; signatories</h2>
+      <div class="article-body">
+        <div class="highlight-box">
+          <p>This Constitution is adopted on <strong>[Date]</strong> by the founding members of SSAVN Community. It is a living document — we expect it to grow and improve as the community does.</p>
+        </div>
+        <table class="info-table" style="margin-top:1.5rem;">
+          <thead>
+            <tr><th>Role</th><th>Name</th><th>Signature</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Founder / President</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+            <tr><td>Secretary</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+            <tr><td>Treasurer</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+            <tr><td>Member</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+            <tr><td>Member</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+  </main>
+
+  <div class="col-gutter"></div>
+</div>
+
+<footer>
+  <p>&copy; 2025 SSAVN Community &nbsp;·&nbsp; <a href="index.html">Home</a> &nbsp;·&nbsp; <a href="about.html">About us</a> &nbsp;·&nbsp; <a href="faq.html">FAQs</a></p>
+</footer>
+
+<script>
+  /* ── Burger ── */
+  const burger = document.getElementById('burger');
+  const nav = document.getElementById('top-nav');
+  burger.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    burger.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open);
+  });
+  nav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      nav.classList.remove('open');
+      burger.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  /* ── Active TOC highlight on scroll ── */
+  const sections = document.querySelectorAll('.article-section');
+  const tocLinks = document.querySelectorAll('.toc-list a');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        tocLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === '#' + entry.target.id) {
+            link.classList.add('active');
+          }
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>

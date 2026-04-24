@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQs – SSAVN Community</title>
+  <meta name="description" content="Frequently asked questions about the SSAVN Community.">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #ffffff;
+      --bg-soft:   #f5f4f0;
+      --bg-card:   #ffffff;
+      --border:    rgba(0,0,0,0.10);
+      --border-md: rgba(0,0,0,0.18);
+      --text:      #1a1a18;
+      --text-muted:#5a5a56;
+      --accent:    #1d6a4a;
+      --accent-bg: #e5f2eb;
+      --accent-txt:#0f4a32;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --font-head: 'Georgia', 'Times New Roman', serif;
+      --font-body: 'Helvetica Neue', Arial, sans-serif;
+      --transition: 0.18s ease;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header ── */
+    header {
+      border-bottom: 0.5px solid var(--border);
+      background: var(--bg);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 1.25rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .site-logo {
+      font-family: var(--font-head);
+      font-size: 18px;
+      font-weight: normal;
+      color: var(--text);
+      letter-spacing: 0.01em;
+      text-decoration: none;
+    }
+    .site-logo:hover { text-decoration: none; }
+
+    /* ── Burger ── */
+    .burger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 36px;
+      height: 36px;
+      background: none;
+      border: 0.5px solid var(--border-md);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      padding: 7px;
+    }
+    .burger span {
+      display: block;
+      height: 1.5px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: transform var(--transition), opacity var(--transition);
+    }
+    .burger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .burger.open span:nth-child(2) { opacity: 0; }
+    .burger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* ── Top Nav ── */
+    .top-nav {
+      border-top: 0.5px solid var(--border);
+      background: var(--bg);
+    }
+    .top-nav ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 0.65rem 1.25rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .top-nav a {
+      font-size: 13px;
+      padding: 4px 12px;
+      border: 0.5px solid var(--border-md);
+      border-radius: 20px;
+      color: var(--text-muted);
+      transition: background var(--transition), color var(--transition);
+      display: block;
+    }
+    .top-nav a:hover, .top-nav a.active {
+      background: var(--accent-bg);
+      color: var(--accent-txt);
+      text-decoration: none;
+      border-color: transparent;
+    }
+
+    @media (max-width: 640px) {
+      .burger { display: flex; }
+      .top-nav { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+      .top-nav.open { max-height: 400px; }
+      .top-nav ul { flex-direction: column; gap: 4px; }
+      .top-nav a { font-size: 14px; padding: 8px 14px; border-radius: var(--radius-sm); }
+    }
+
+    /* ── Page hero ── */
+    .page-hero {
+      padding: 2.5rem 1.25rem 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+      border-bottom: 0.5px solid var(--border);
+    }
+    .breadcrumb {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+    .breadcrumb a { color: var(--text-muted); }
+    .breadcrumb a:hover { color: var(--accent); }
+    .page-title {
+      font-family: var(--font-head);
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: normal;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+    .page-subtitle {
+      font-size: 15px;
+      color: var(--text-muted);
+      max-width: 580px;
+    }
+
+    /* ── Main ── */
+    main { padding: 2.5rem 0 1rem; }
+    .section-wrap { padding: 0 1.25rem; max-width: 900px; margin: 0 auto; }
+    section { margin-bottom: 3rem; }
+
+    h2 {
+      font-family: var(--font-head);
+      font-size: 18px;
+      font-weight: normal;
+      margin-bottom: 1rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* ── Category tabs ── */
+    .cat-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 2rem;
+    }
+    .cat-tab {
+      font-size: 13px;
+      padding: 5px 14px;
+      border: 0.5px solid var(--border-md);
+      border-radius: 20px;
+      color: var(--text-muted);
+      background: none;
+      cursor: pointer;
+      transition: background var(--transition), color var(--transition);
+      font-family: var(--font-body);
+    }
+    .cat-tab:hover, .cat-tab.active {
+      background: var(--accent-bg);
+      color: var(--accent-txt);
+      border-color: transparent;
+    }
+
+    /* ── FAQ group ── */
+    .faq-group {
+      margin-bottom: 2.5rem;
+    }
+    .faq-group-title {
+      font-family: var(--font-head);
+      font-size: 13px;
+      font-weight: normal;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 0.5px solid var(--border);
+    }
+
+    /* ── Accordion ── */
+    .faq-item {
+      border-bottom: 0.5px solid var(--border);
+    }
+    .faq-item:first-of-type { border-top: 0.5px solid var(--border); }
+
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem 0;
+      cursor: pointer;
+      text-align: left;
+      font-family: var(--font-body);
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .faq-question:hover { color: var(--accent); }
+
+    .faq-chevron {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      border: 0.5px solid var(--border-md);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.25s ease, background var(--transition);
+    }
+    .faq-chevron svg {
+      width: 10px;
+      height: 10px;
+      transition: transform 0.25s ease;
+    }
+    .faq-item.open .faq-chevron {
+      background: var(--accent-bg);
+      border-color: transparent;
+    }
+    .faq-item.open .faq-chevron svg {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .faq-answer-inner {
+      padding: 0 0 1rem;
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      max-width: 640px;
+    }
+    .faq-answer-inner a { color: var(--accent); }
+    .faq-item.open .faq-answer { max-height: 400px; }
+
+    /* ── Contact nudge ── */
+    .contact-nudge {
+      background: var(--bg-soft);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .contact-nudge p {
+      font-size: 15px;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+    .contact-nudge a {
+      display: inline-block;
+      padding: 8px 20px;
+      background: var(--accent);
+      color: #fff;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      transition: opacity var(--transition);
+    }
+    .contact-nudge a:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Divider ── */
+    .divider {
+      height: 0.5px;
+      background: var(--border);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 0.5px solid var(--border);
+      padding: 1.25rem;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="site-logo">SSAVN Community</a>
+    <button class="burger" id="burger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <nav class="top-nav" id="top-nav" aria-label="Main navigation">
+    <ul>
+      <li><a href="departments.html">Departments</a></li>
+      <li><a href="committees.html">Committees</a></li>
+      <li><a href="constitution.html">Constitution</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="faqs.html" class="active">FAQs</a></li>
+      <li><a href="index.html#join">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="page-hero">
+  <p class="breadcrumb"><a href="index.html">Home</a> &rsaquo; FAQs</p>
+  <h1 class="page-title">Frequently asked questions</h1>
+  <p class="page-subtitle">Everything you need to know about SSAVN Community — how it works, who can join, and what to expect.</p>
+</div>
+
+<main>
+  <div class="section-wrap">
+
+    <!-- Category filter tabs -->
+    <div class="cat-tabs" id="cat-tabs">
+      <button class="cat-tab active" data-cat="all">All</button>
+      <button class="cat-tab" data-cat="general">General</button>
+      <button class="cat-tab" data-cat="joining">Joining</button>
+      <button class="cat-tab" data-cat="work">Work &amp; contribution</button>
+      <button class="cat-tab" data-cat="governance">Governance</button>
+    </div>
+
+    <!-- GENERAL -->
+    <div class="faq-group" data-cat="general">
+      <p class="faq-group-title">General</p>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          What is SSAVN Community?
+          <span class="faq-chevron"><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">
+            SSAVN Community is a collaborative, open community of individuals and groups who work together to solve real-world problems. We run projects, workshops, events, and creative work under four guiding pillars: Learn, Earn, Enjoy, and Evolve.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Is SSAVN a company or organisation?
+          <span class="faq-chevron"><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">
+            SSAVN is a community — not a company, school, or registered NGO. It is a network of people who choose to work and grow together. It is governed by a Constitution that all members agree to uphold.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          What does SSAVN stand for?
+          <span class="faq-chevron"><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">
+            The name SSAVN represents the core journey every member goes through: <strong>S</strong>ee, <strong>S</strong>tart, <strong>A</strong>ct, <strong>V</strong>alidate, and <strong>N</strong>urture — a cycle of learning, doing, and growing together.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Is the community online, offline, or both?
+          <span class="faq-chevron"><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">
+            SSAVN operates both online and offline. Discussions, coordination, and some workshops happen digitally. Projects, events, and in-person workshops happen in physical spaces. Members can participate based on their availability and location.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JOINING -->
+    <div class="faq-group" data-cat="joining">
+      <p class="faq-group-title">Joining</p>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Who can join SSAVN Community?
+          <span class="faq-chevron"><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">
+            Anyone who understands the community's language and is willing to contribute with intention and responsibility. There is no age limit, no educational requirement, and no restriction based on background, caste, gender, or language. Willingness and responsibility are what matter.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          How do I join?
+          <span class="faq-chevron"><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">
+            Start by watching the introduction video on the homepage, then explore the dashboard to understand how the community works. You can join as an observer first — no commitment needed. When you're ready, reach out via WhatsApp or Instagram to connect with an existing member.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Is there a fee to join?
+          <span class="faq-chevron"><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">
+            Joining as an observer is free. Some activities, projects, or workshops may involve a contribution or fee depending on their nature. This is always communicated clearly in advance.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          What is an observer?
+          <span class="faq-chevron"><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">
+            An observer is someone who joins the community to learn and understand how it works, without any immediate obligation to contribute. It is the natural first step before becoming an active member. There is no time limit on how long you remain an observer.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Can I leave the community if I want to?
+          <span class="faq-chevron"><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">
+            Yes, absolutely. Membership is voluntary. You can step back or leave at any time. We only ask that you complete any commitments you have made before stepping away, out of respect for others.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WORK & CONTRIBUTION -->
+    <div class="faq-group" data-cat="work">
+      <p class="faq-group-title">Work &amp; contribution</p>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          What kind of work happens in the community?
+          <span class="faq-chevron"><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">
+            The community works across four main areas: <strong>Projects</strong> (solving real-world problems), <strong>Workshops</strong> (spreading knowledge and skills), <strong>Events</strong> (celebrating culture and community), and <strong>Creations</strong> (producing content, tools, and materials that promote good values).
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          How much time do I need to commit?
+          <span class="faq-chevron"><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">
+            There is no fixed requirement. Contribution is based on your capacity and the commitments you take on. As an observer, there is no time obligation. As an active member, you decide what you take on.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Can I earn from my contributions?
+          <span class="faq-chevron"><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">
+            Yes. One of the four pillars is <em>Earn</em>. Contributions that generate value — through projects, workshops, or services — are recognised and can result in financial reward. The specifics depend on the nature of the work and the agreements made within departments or committees.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          What is a department?
+          <span class="faq-chevron"><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">
+            Departments are focused groups within the community that work on specific areas — for example, technology, education, events, or creative work. Members choose a department that matches their skills and interests and contribute within that space.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GOVERNANCE -->
+    <div class="faq-group" data-cat="governance">
+      <p class="faq-group-title">Governance</p>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Who runs the community?
+          <span class="faq-chevron"><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">
+            The community is governed collectively. <strong>Committees</strong> provide direction and oversight. No single person controls everything — decisions are made through structured processes defined in the Constitution. All members have a voice.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          What is the Constitution?
+          <span class="faq-chevron"><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">
+            The Constitution is the founding document that defines the community's values, structure, rules, and processes. Every member is expected to read and agree to it. You can read it on the <a href="constitution.html">Constitution page</a>.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          How are disputes resolved?
+          <span class="faq-chevron"><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">
+            Disputes are handled through the process outlined in the Constitution. The relevant committee reviews the matter, hears from both parties, and makes a decision. The process is designed to be fair, transparent, and respectful.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Are community records public?
+          <span class="faq-chevron"><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">
+            Yes. Records of work, events, and outcomes are maintained openly and are accessible to all members. This transparency is a core value of the community.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STILL HAVE QUESTIONS -->
+    <div class="contact-nudge">
+      <p>Didn't find your answer? Reach out to us directly.</p>
+      <a href="https://wa.me/917820202020" target="_blank" rel="noopener">Ask on WhatsApp →</a>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <p>&copy; 2025 SSAVN Community &nbsp;·&nbsp; <a href="index.html">Home</a> &nbsp;·&nbsp; <a href="about.html">About us</a> &nbsp;·&nbsp; <a href="constitution.html">Constitution</a></p>
+</footer>
+
+<script>
+  /* ── Burger ── */
+  const burger = document.getElementById('burger');
+  const nav = document.getElementById('top-nav');
+  burger.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    burger.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open);
+  });
+  nav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      nav.classList.remove('open');
+      burger.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  /* ── Accordion ── */
+  document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      // Close all
+      document.querySelectorAll('.faq-item.open').forEach(el => {
+        el.classList.remove('open');
+        el.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+      });
+      // Open clicked (if it wasn't already open)
+      if (!isOpen) {
+        item.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  /* ── Category filter ── */
+  const tabs = document.querySelectorAll('.cat-tab');
+  const groups = document.querySelectorAll('.faq-group');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const cat = tab.dataset.cat;
+      groups.forEach(group => {
+        if (cat === 'all' || group.dataset.cat === cat) {
+          group.style.display = '';
+        } else {
+          group.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
